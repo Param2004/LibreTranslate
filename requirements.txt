@@ -1,0 +1,13 @@
+# server 2
+argos-translate-files==1.1.4
+flask==3.0.3
+flask-babel==4.0.0
+flask-session==0.8.0
+flask-swagger==0.2.14
+flask-swagger-ui==4.11.1
+redis==5.0.4
+apscheduler==3.10.4
+langdetect==1.0.9
+lexilang==1.0.2
+expiringdict==1.2.2
+waitress==3.0.0
