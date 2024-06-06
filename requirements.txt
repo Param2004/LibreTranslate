@@ -11,3 +11,4 @@ langdetect
 lexilang
 expiringdict
 waitress
+ctranslate2
