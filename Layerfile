@@ -1,11 +1,44 @@
+
 #Use an Ubuntu 18.04 base for our staging server
 FROM vm/ubuntu:18.04
 
 # To note: Layerfiles create entire VMs, *not* containers!
 
 # Install python
-RUN apt-get update && apt-get install python3
+RUN echo | sudo add-apt-repository ppa:deadsnakes/ppa && sudo apt update && sudo apt install python3.8
 
-RUN apt install python3-venv
+# RUN apt-get update && apt-get install python3.8
+RUN python3 --version
+RUN sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
+RUN python3 --version
+RUN sudo apt-get install python3-pip
+# RUN python3 -m ensurepip
+# RUN sudo apt-get install python3-venv && sudo python3 -m venv env
 
-# RUN python install -r requirements.txt
+RUN ls
+
+# You could also install & start a database:
+# RUN apt-get update && apt-get install postgresql
+
+# This line copies the repository to /root in the runner
+COPY . .
+RUN ls
+RUN sudo apt-get install cmake
+# RUN source env/bin/activate && 
+RUN python3 -m pip install --upgrade pip
+RUN pip install --ignore-installed --force-reinstall PyYAML && pip install --ignore-installed --force-reinstall blinker
+# RUN source env/bin/activate &&
+# RUN python3 -m pip install ctranslate2
+# RUN source env/bin/activate && 
+RUN python3 -m pip install -r requirements.txt
+# RUN mkdir build && cd build && cmake .. && make -j$(nproc) && sudo make install
+
+
+# RUN source env/bin/activate && 
+# RUN python3 main.py --load-only hi,en --update-models
+# Expose the webserver in the staging server as a secure link.
+# Whenever someone clicks the link, we'll load this staging server and forward
+# their requests to it.
+RUN BACKGROUND python3 main.py --load-only hi,en --update-models 
+# http.server 80
+# EXPOSE WEBSITE http://localhost:80
