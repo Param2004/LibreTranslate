@@ -1,5 +1,5 @@
 # server 2
-argos-translate-files==1.1.4
+argos-translate-files
 flask
 flask-babel
 flask-session
