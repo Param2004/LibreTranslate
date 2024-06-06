@@ -5,9 +5,9 @@ flask-babel
 flask-session
 flask-swagger
 flask-swagger-ui
-redis==5.0.4
-apscheduler==3.10.4
-langdetect==1.0.9
-lexilang==1.0.2
-expiringdict==1.2.2
-waitress==3.0.0
+redis
+apscheduler
+langdetect
+lexilang
+expiringdict
+waitress
