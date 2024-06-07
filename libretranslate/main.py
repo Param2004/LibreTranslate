@@ -2,9 +2,9 @@ import argparse
 import operator
 import sys
 
+from flask_cors import CORS
 from libretranslate.app import create_app
 from libretranslate.default_values import DEFAULT_ARGUMENTS as DEFARGS
-
 
 def get_args():
     parser = argparse.ArgumentParser(
@@ -219,6 +219,9 @@ def main():
     args = get_args()
     app = create_app(args)
 
+    # Enable CORS
+    CORS(app, resources={r"/*": {"origins": "*"}})
+
     if '--wsgi' in sys.argv:
         return app
     else:
@@ -226,21 +229,7 @@ def main():
             # '::' will listen on both ipv6 and ipv4
             args.host = "::"
 
-        if args.debug:
-            app.run(host=args.host, port=args.port)
-        else:
-            from waitress import serve
-
-            url_scheme = "https" if args.ssl else "http"
-            print(f"Running on {url_scheme}://{args.host}:{args.port}{args.url_prefix}")
-
-            serve(
-                app,
-                host=args.host,
-                port=args.port,
-                url_scheme=url_scheme,
-                threads=args.threads
-            )
+        app.run(host=args.host, port=args.port, ssl_context="adhoc" if args.ssl else None, threaded=True)
 
 
 if __name__ == "__main__":

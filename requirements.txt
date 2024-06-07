@@ -2,6 +2,7 @@
 argos-translate-files
 flask
 flask-babel
+flask-cors
 flask-session
 flask-swagger
 flask-swagger-ui
