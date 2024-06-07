@@ -220,7 +220,9 @@ def main():
     app = create_app(args)
 
     # Enable CORS
-    CORS(app, resources={r"/*": {"origins": "*"}})
+    # CORS(app, resources={r"/*": {"origins": "*"}})
+    CORS(app, resources={r"/*": {"origins": "https://docs.google.com"}})
+
 
     if '--wsgi' in sys.argv:
         return app
